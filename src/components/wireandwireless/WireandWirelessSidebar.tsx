@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LuListPlus } from 'react-icons/lu';
 import { FaTools } from 'react-icons/fa';
-import Modal from '../Modal';
 import CategoryFilter from './CategoryFilter';
+import Modal from '../Modal';
 
 const WireandWirelessSidebar: React.FC = () => {
   const location = useLocation();
