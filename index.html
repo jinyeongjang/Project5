@@ -1,13 +1,65 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+       <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <link rel="icon" type="image/png" href="./images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
+    <meta
+      name="description"
+      content="스마트한 결제를 위한 최고의 선택! 이레페이는 매장의 환경에 맞는 솔루션을 제공하기 위해 최선을 다합니다." />
+    <meta
+      name="keywords"
+      content="이레페이, 키오스크, 포스, 카드단말기, 토스 단말기, 토스 프론트, 토스 터미널, 토스포스, 전화출입무인인증, 출입무인인증, 무인인증, 로비스, CCTV, 무인옷가게, 무인꽃가게, 무인아동복, 창업" />
+    <meta property="og:url" content="https://www.irehpay.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="이레페이-스마트한 결제를 위한 최고의 선택!" />
+    <meta property="og:description" content="스마트한 결제를 위한 최고의 선택! 이레페이는 매장의 환경에 맞는 솔루션을 제공하기 위해 최선을 다합니다." />
+      <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/282fd79a-a754-4baa-952e-30966ddee9bc.jpg?token=zgbJv7vQqwnhxir8wRSJDt-spPZraxjXo4BO6pUn2Zs&height=601&width=1200&expires=33275528689">
+      
+
+    <meta name="naver-site-verification" content="fadd64778bbd593437ea7e8b52f72b1ce8488a45" />
+    <meta name="google-site-verification" content="cOa852aQMARaDDtGuTj8pNlnMgmwa8AyBAFsr1pPHtI" />
+    <title>이레페이-스마트한 결제를 위한 최고의 선택!</title>
+    
+    <link
+    rel="stylesheet"
+    as="style"
+    crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+  />
+  <style>
+    body {
+      font-family:
+        'Pretendard',
+        -apple-system,
+        BlinkMacSystemFont,
+        system-ui,
+        Roboto,
+        'Helvetica Neue',
+        'Segoe UI',
+        'Apple SD Gothic Neo',
+        'Noto Sans KR',
+        'Malgun Gothic',
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        sans-serif;
+    }
+  </style>
   <body>
     <div id="root"></div>
+    <div id="portal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- 채널톡 스크립트 -->
+    <script>
+      (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+      // 채널톡 스크립트
+      ChannelIO('boot', {
+        "pluginKey": "ad255906-6bd3-45c7-986e-6538ae948db7"
+      });
+      
+    </script>
   </body>
 </html>
