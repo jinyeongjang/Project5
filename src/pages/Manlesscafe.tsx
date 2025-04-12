@@ -82,7 +82,7 @@ const Manlesscafe: React.FC = () => {
           className="justify-left mb-4 flex items-center text-4xl font-bold text-blue-600"
           variants={itemVariants}>
           <FaPhoneAlt className="mr-2" />
-          무인전자담배 창업
+          무인전자담배 매장창업
         </motion.h1>
         <motion.hr className="my-6 border-gray-200" variants={itemVariants} />
 
@@ -90,64 +90,109 @@ const Manlesscafe: React.FC = () => {
           <SwiperCarousel />
         </motion.div>
 
-        <motion.div className="md:grid-cols-0 mb-12 grid grid-cols-2 gap-8" variants={itemVariants}>
+        {/* <motion.div className="md:grid-cols-0 mb-12 grid grid-cols-2 gap-8" variants={itemVariants}>
           <motion.img
-            src="/images/manlesscafe/manlesscafefront.png"
+            src="\images\manlesscafe\manlesscafeinfo1.png"
             alt="무인전자담배 창업 전면"
             className="h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
-
-          <motion.img
-            src="/images/manlesscafe/manlesscafeside.png"
-            alt="무인전자담배 창업 측면"
-            className="h-auto w-full rounded-xl shadow-md"
-            variants={itemVariants}
-          />
-        </motion.div>
-
-        <motion.h2 className="mb-4 text-2xl font-bold text-gray-800" variants={itemVariants}>
-          무인전자담배 카페 내부
-        </motion.h2>
+        </motion.div> */}
 
         <motion.div className="md:grid-cols-0 mb-12 grid grid-cols-1 gap-8" variants={itemVariants}>
           <motion.img
-            src="/images/irehpay_manlesscafebanner1.png"
-            alt="무인전자담배 창업-1"
+            src="\images\manlesscafe\manlesscafeinfomain.png"
+            alt="무인전자담배 매장창업-info"
             className="h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
 
           <motion.img
-            src="/images/manlesscafe/manlesscafeinterior1.png"
-            alt="무인전자담배 창업-2"
+            src="\images\manlesscafe\manlesscafeinfo1.png"
+            alt="무인전자담배 매장창업-1"
             className="h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
 
           <motion.img
-            src="/images/manlesscafe/manlesscafeinterior2.png"
-            alt="무인전자담배 창업-3"
+            src="\images\manlesscafe\manlesscafeinfo2.png"
+            alt="무인전자담배 매장창업-2"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo3.png"
+            alt="무인전자담배 매장창업-3"
             className="mt-[-20px] h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
 
           <motion.img
-            src="/images/manlesscafe/manlesscafeinterior3.png"
-            alt="무인전자담배 창업-4"
+            src="\images\manlesscafe\manlesscafeinfo4.png"
+            alt="무인전자담배 매장창업-4"
             className="h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
 
           <motion.img
-            src="/images/manlesscafe/manlesscafeinterior4.png"
-            alt="무인전자담배 창업-5"
+            src="\images\manlesscafe\manlesscafeinfo5.png"
+            alt="무인전자담배 매장창업-5"
             className="h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
           <motion.img
-            src="/images/manlesscafe/manlesscafeinterior5.png"
-            alt="무인전자담배 창업-6"
+            src="\images\manlesscafe\manlesscafeinfo6.png"
+            alt="무인전자담배 매장창업-6"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo7.png"
+            alt="무인전자담배 매장창업-7"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo8.png"
+            alt="무인전자담배 매장창업-8"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo9.png"
+            alt="무인전자담배 매장창업-9"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo10.png"
+            alt="무인전자담배 매장창업-10"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo11.png"
+            alt="무인전자담배 매장창업-11"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo12.png"
+            alt="무인전자담배 매장창업-12"
+            className="h-auto w-full rounded-xl shadow-md"
+            variants={itemVariants}
+          />
+
+          <motion.img
+            src="\images\manlesscafe\manlesscafeinfo13.png"
+            alt="무인전자담배 매장창업-13"
             className="h-auto w-full rounded-xl shadow-md"
             variants={itemVariants}
           />
