@@ -36,7 +36,7 @@ const HomePopup: React.FC<HomePopupProps> = ({ isVisible, dontShowAgainToday, on
             </Link>
 
             <div className="p-4 xs:p-3">
-              <h2 className="mb-2 text-lg font-bold xs:text-base">무인전자담배 창업 안내</h2>
+              <h2 className="mb-2 text-lg font-bold xs:text-base">무인전자담배 매장창업 안내</h2>
               <p className="mb-4 text-sm text-gray-600 xs:mb-2 xs:text-xs">창업문의 가능합니다.</p>
 
               <div className="flex flex-col gap-3 xs:gap-2">

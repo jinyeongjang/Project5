@@ -295,7 +295,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                     className="group flex h-full w-full items-center justify-center rounded-xl px-1.5 py-1.5 transition duration-300 hover:bg-slate-500 hover:bg-opacity-50"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     <span className="relative">
-                      무인전자담배 창업
+                      무인전자담배 매장창업
                       <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
                     </span>
                   </Link>
