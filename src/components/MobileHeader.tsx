@@ -59,7 +59,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
       </button>
 
       <div
-        className={`fixed left-0 right-0 top-[72px] transform bg-white px-4 py-6 shadow-lg transition-all duration-300 ${
+        className={`fixed left-0 right-0 top-[50px] transform bg-white px-4 py-6 shadow-lg transition-all duration-300 ${
           isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-[150%] opacity-0'
         }`}>
         <ul className="grid grid-cols-2 gap-2">
