@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaWifi, FaMobile } from 'react-icons/fa';
 import { MdCable } from 'react-icons/md';
+import { HiViewGrid } from 'react-icons/hi';
 
 interface CategoryFilterProps {
   selectedCategory: string;
@@ -10,31 +11,32 @@ interface CategoryFilterProps {
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ selectedCategory, onCategoryChange }) => {
   const categories = [
-    { id: 'all', label: '전체', style: 'border-2' },
-    { id: 'wire', label: '유선', icon: <MdCable />, style: 'border-2' },
-    { id: 'wireless', label: '무선', icon: <FaWifi />, style: 'border-2' },
-    { id: 'mobile', label: '모바일시스템', icon: <FaMobile />, style: 'border-2' },
+    { id: 'all', label: '전체', icon: <HiViewGrid />, description: '모든 제품' },
+    { id: 'wire', label: '유선', icon: <MdCable />, description: '유선 제품' },
+    { id: 'wireless', label: '무선', icon: <FaWifi />, description: '무선 제품' },
+    { id: 'mobile', label: '모바일시스템', icon: <FaMobile />, description: '모바일 시스템' },
   ];
 
   return (
     <motion.div
-      className="mb-4 grid w-[290px] grid-cols-2 gap-2 px-4 text-left tracking-tighter"
-      initial={{ opacity: 0, y: -20 }}
+      className="mb-4 grid w-full grid-cols-2 gap-2 text-center"
+      initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}>
       {categories.map((category) => (
         <motion.button
           key={category.id}
           onClick={() => onCategoryChange(category.id)}
-          className={`flex h-[40px] flex-1 items-center justify-center rounded-xl px-2 py-2 tracking-tighter transition-colors duration-200 ${
+          className={`flex flex-col items-center justify-center rounded-xl p-2 ${
             selectedCategory === category.id
-              ? `${category.style} bg-green-600 text-white`
-              : `${category.style} text-gray-800 hover:bg-gray-100`
+              ? 'bg-gradient-to-r from-sky-600 to-blue-500 text-white shadow-md'
+              : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50 hover:shadow'
           }`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}>
-          {category.icon && <span className="mr-2">{category.icon}</span>}
-          {category.label}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          title={category.description}>
+          <span className="mb-1 text-2xl">{category.icon}</span>
+          <span className="text-sm font-medium leading-tight">{category.label}</span>
         </motion.button>
       ))}
     </motion.div>
