@@ -12,7 +12,7 @@ import CustomerSupportInquiry from './pages/customer/CustomerSupportInquiry';
 import InstallationCases from './pages/InstallationCases';
 import InstallationCasesGallery from './pages/InstallationCasesGallery';
 import UnAttendAuth from './pages/UnAttendAuth'; // 전화무인인증 페이지
-import Manlesscafe from './pages/Manlesscafe'; // 무인전자 페이지
+import Manlesscafe from './pages/Manlesscafe'; // 무인전자 매장창업 페이지
 import WireAndWirelessIntroduce from './pages/wireandwireless/WireAndWirelessIntroduce'; // 유무선 단말기 소개 페이지
 
 // Wire
@@ -24,6 +24,16 @@ import WireLC7602S from './pages/wireandwireless/wire/WireLC7602S';
 import WirelessLC7211S from './pages/wireandwireless/wireless/WirelessLC7211S';
 import WirelessLC7311S from './pages/wireandwireless/wireless/WirelessLC7311S';
 import WirelessSM7701S from './pages/wireandwireless/wireless/WirelessSM7701S';
+
+// Wireless 2inch
+import WireKIS1030 from './pages/wireandwireless/wire/2inch/WireKIS1030';
+import WireKIS2200 from './pages/wireandwireless/wire/2inch/WireKIS2200';
+import WireKIS2210Q from './pages/wireandwireless/wire/2inch/WireKIS2210Q';
+
+// Wireless 3inch
+import WireKIS1421P from './pages/wireandwireless/wire/3inch/WireKIS1421P';
+import WireKIS2420 from './pages/wireandwireless/wire/3inch/WireKIS2420';
+import WireNPC1000 from './pages/wireandwireless/wire/3inch/WireNPC1000';
 
 //MobileSystem
 import MobileCBP3000 from './pages/mobilesystem/MobileCBP3000';
@@ -39,6 +49,7 @@ import KioskPosbank from './pages/kiosk/KioskPosbank';
 import KioskKisAndroid156inch from './pages/kiosk/KioskKisAndroid15.6inch';
 import KioskKisAndroid215inch from './pages/kiosk/KioskKisAndroid21.5inch';
 import KioskE200 from './pages/kiosk/kioskE200';
+import KioskKisAndroidminipos from './pages/kiosk/kioskKisAndroidminipos';
 import KioskbarrierfreeT6B from './pages/kiosk/KioskbarrierfreeT6B';
 import Kioskbarrierfreemazic from './pages/kiosk/Kioskbarrierfreemazic';
 
@@ -50,7 +61,6 @@ import E250P from './pages/pos/PosE250P';
 import ArcPos from './pages/pos/PosArcPos';
 
 // Toss
-// import TossTerminalsIntroduce from './pages/tossterminals/TossTerminalsIntroduce';
 import TossTerminals from './pages/tossterminals/TossTerminals';
 import Tossfront from './pages/tossterminals/TossFront';
 
@@ -83,6 +93,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="kisandroidInfo15.6inchInfo" element={<KioskKisAndroid156inch />} />
           <Route path="kisandroidInfo21.5inchInfo" element={<KioskKisAndroid215inch />} />
           <Route path="kioskE200Info" element={<KioskE200 />} />
+          <Route path="kisandroidminiposInfo" element={<KioskKisAndroidminipos />} />
           <Route path="kioskbarrierfreeT6BInfo" element={<KioskbarrierfreeT6B />} />
           <Route path="kioskbarrierfreemazicInfo" element={<Kioskbarrierfreemazic />} />
         </Route>
@@ -117,6 +128,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="WireLC7401SInfo" element={<WireLC7401S />} />
           <Route path="WireLC7403SInfo" element={<WireLC7403S />} />
           <Route path="WireLC7602SInfo" element={<WireLC7602S />} />
+
+          {/* 2inch */}
+          <Route path="WireKIS1030Info" element={<WireKIS1030 />} />
+          <Route path="WireKIS2200Info" element={<WireKIS2200 />} />
+          <Route path="WireKIS2210QInfo" element={<WireKIS2210Q />} />
+
+          {/* 3inch */}
+          <Route path="WireKIS1421PInfo" element={<WireKIS1421P />} />
+          <Route path="WireKIS2420Info" element={<WireKIS2420 />} />
+          <Route path="WireNPC1000Info" element={<WireNPC1000 />} />
         </Route>
 
         {/* 무선 단말기 상세 페이지 */}
