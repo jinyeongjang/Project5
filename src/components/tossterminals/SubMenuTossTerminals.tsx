@@ -35,33 +35,42 @@ const SubMenuTossTerminals: React.FC<SubMenuTossTerminalsProps> = ({ isVisible, 
   if (!isVisible) return null;
 
   return (
-    <div className="absolute top-full ml-[450px] mt-[5px] w-[300px] origin-top -translate-x-1/2 scale-100 rounded-xl bg-white py-2 text-black opacity-100 shadow-lg transition-all duration-300 ease-in-out xs:hidden">
+    <div className="absolute top-full ml-[450px] mt-[5px] w-[350px] origin-top -translate-x-1/2 scale-100 rounded-xl bg-white py-2 text-black opacity-100 shadow-lg transition-all duration-300 ease-in-out xs:hidden">
       <div className="max-h-[calc(100vh-200px)] overflow-y-auto p-4 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-500">
-        <h3 className="mb-4 text-lg font-bold">토스페이먼츠 단말기 제품</h3>
-        {tossProducts.map((item) => (
-          <motion.div key={item.path} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
+        <h3 className="mb-4 ml-2 text-left text-lg font-bold text-sky-700">토스페이먼츠 단말기 제품</h3>
+        <div className="grid grid-cols-1 gap-3 pb-4">
+          {tossProducts.map((item) => (
+            <motion.div
               key={item.path}
-              to={item.path}
-              className="block transform rounded-xl px-4 py-3 text-[14px] transition-all duration-200 ease-in-out hover:translate-x-1 hover:bg-gray-200"
-              onClick={toggleMenu}>
-              <div className="flex items-center font-semibold">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="mr-2 h-12 w-12 object-contain text-left transition-transform duration-200 group-hover:scale-110"
-                  />
-                )}
-                {item.title}
-              </div>
-              <div className="mt-1 space-y-0.5">
-                <p className="text-left text-[13px] text-sm text-gray-600">{item.description}</p>
-                <p className="text-left text-[13px] text-sm text-gray-500">{item.subDescription}</p>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="transform transition-all duration-200">
+              <Link
+                to={item.path}
+                className="group block rounded-xl transition-all duration-200 ease-in-out hover:translate-x-1 hover:bg-gray-100 hover:shadow-md"
+                onClick={toggleMenu}>
+                <div className="px-4 py-3">
+                  <div className="flex items-center text-left font-semibold">
+                    {item.image && (
+                      <div className="mr-3 overflow-hidden rounded-lg bg-white p-1 shadow-sm">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="h-12 w-12 object-contain text-left transition-transform duration-200 group-hover:scale-110"
+                        />
+                      </div>
+                    )}
+                    <span className="text-gray-800">{item.title}</span>
+                  </div>
+                  <div className="mt-2 space-y-1 pl-1">
+                    <p className="text-left text-[13px] text-gray-600">{item.description}</p>
+                    <p className="text-left text-[13px] text-gray-500">{item.subDescription}</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );
