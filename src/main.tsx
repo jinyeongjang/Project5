@@ -11,9 +11,10 @@ import CustomerSupportEvent from './pages/customer/CustomerSupportEvent';
 import CustomerSupportInquiry from './pages/customer/CustomerSupportInquiry';
 import InstallationCases from './pages/InstallationCases';
 import InstallationCasesGallery from './pages/InstallationCasesGallery';
-import UnAttendAuth from './pages/UnAttendAuth'; // 전화무인인증 페이지
-import Manlesscafe from './pages/Manlesscafe'; // 무인전자 매장창업 페이지
+import UnattendAuthIntroduce from './pages/unattend-auth/UnattendAuthIntroduce'; // 출입인증
+// import Manlesscafe from './pages/Manlesscafe'; // 무인전자 매장창업 페이지
 import WireAndWirelessIntroduce from './pages/wireandwireless/WireAndWirelessIntroduce'; // 유무선 단말기 소개 페이지
+import KonepassAuth from './pages/unattend-auth/konepassAuth';
 
 // Wire
 import WireLC7401S from './pages/wireandwireless/wire/WireLC7401S';
@@ -70,8 +71,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Route path="/" element={<App />}>
         {/* 메인 페이지 */}
         <Route index element={<Home />} />
-        {/* 무인인증 페이지 */}
-        <Route path="unattend-auth" element={<UnAttendAuth />} />
+        {/* 출입인증 페이지 */}
+        <Route path="unattendauthintroduce" element={<UnattendAuthIntroduce />} />
+        <Route path="unattend-auth">
+          <Route path="konepassAuth" element={<KonepassAuth />} />
+        </Route>
 
         {/* 고객 지원 페이지 */}
         <Route path="customer-support">
@@ -100,7 +104,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
         {/* 무인전자 페이지 */}
 
-        <Route path="manlesscafe" element={<Manlesscafe />} />
+        {/* <Route path="manlesscafe" element={<Manlesscafe />} /> */}
 
         {/* POS 소개 페이지 */}
         <Route path="pos-introduce" element={<PosIntroduce />} />
