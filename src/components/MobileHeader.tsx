@@ -157,23 +157,11 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 
           <li className="flex items-center justify-center">
             <Link
-              to="/unattend-auth"
+              to="/unattendauthintroduce"
               className="group flex h-full w-full items-center justify-center rounded-xl px-2 py-2 text-sm text-black transition duration-300 hover:bg-slate-500 hover:bg-opacity-50"
               onClick={handleLinkClick}>
               <span className="relative">
-                전화무인인증/CCTV
-                <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
-              </span>
-            </Link>
-          </li>
-
-          <li className="flex items-center justify-center">
-            <Link
-              to="/manlesscafe"
-              className="group flex h-full w-full items-center justify-center rounded-xl px-2 py-2 text-sm text-black transition duration-300 hover:bg-slate-500 hover:bg-opacity-50"
-              onClick={handleLinkClick}>
-              <span className="relative">
-                무인전자담배 매장창업
+                출입인증/CCTV
                 <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
               </span>
             </Link>

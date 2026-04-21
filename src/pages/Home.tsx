@@ -1,38 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SwiperCarousel from '../components/home/SwiperCarousel';
 import MainMenu from '../components/home/MainMenu';
 import { BsClipboardData, BsWallet2 } from 'react-icons/bs';
 import { RiCustomerService2Fill } from 'react-icons/ri';
 import ScrollToTop from '../components/ScrollToTop';
 import { motion } from 'framer-motion';
-import HomePopup from '../components/HomePopup';
+// import HomePopup from '../components/HomePopup';
 
 const Home: React.FC = () => {
-  // 팝업 상태 관리
-  const [showPopup, setShowPopup] = useState(false);
-  const [dontShowAgainToday, setDontShowAgainToday] = useState(false);
+  //   // 팝업 상태 관리
+  //   const [showPopup, setShowPopup] = useState(false);
+  //   const [dontShowAgainToday, setDontShowAgainToday] = useState(false);
 
-  // 팝업 즉시 표시
-  useEffect(() => {
-    // 타임아웃 없이 즉시 팝업 표시
-    setShowPopup(true);
-  }, []);
+  //   // 팝업 즉시 표시
+  //   useEffect(() => {
+  //     // 타임아웃 없이 즉시 팝업 표시
+  //     setShowPopup(true);
+  //   }, []);
 
-  // 팝업 닫기 함수
-  const handleClosePopup = () => {
-    setShowPopup(false);
+  //   // 팝업 닫기 함수
+  //   const handleClosePopup = () => {
+  //     setShowPopup(false);
 
-    // "오늘 다시 보지 않기" 체크했으면 오늘 날짜 저장
-    if (dontShowAgainToday) {
-      localStorage.setItem('popupDontShowToday', new Date().toDateString());
-      sessionStorage.setItem('popupClosed', 'true');
-    }
-  };
+  //     // "오늘 다시 보지 않기" 체크했으면 오늘 날짜 저장
+  //     if (dontShowAgainToday) {
+  //       localStorage.setItem('popupDontShowToday', new Date().toDateString());
+  //       sessionStorage.setItem('popupClosed', 'true');
+  //     }
+  //   };
 
-  // "오늘 다시 보지 않기" 토글 함수
-  const handleToggleDontShowAgain = () => {
-    setDontShowAgainToday((prev) => !prev);
-  };
+  //   // "오늘 다시 보지 않기" 토글 함수
+  //   const handleToggleDontShowAgain = () => {
+  //     setDontShowAgainToday((prev) => !prev);
+  //   };
 
   // 기존 컨테이너 및 아이템 애니메이션 설정
   const containerVariants = {
@@ -62,12 +62,12 @@ const Home: React.FC = () => {
   return (
     <div className="relative min-h-screen">
       {/* 분리된 팝업 컴포넌트 */}
-      <HomePopup
+      {/* <HomePopup
         isVisible={showPopup}
         dontShowAgainToday={dontShowAgainToday}
         onClose={handleClosePopup}
         onToggleDontShow={handleToggleDontShowAgain}
-      />
+      /> */}
 
       {/* 기존 컨텐츠 */}
       <section className="relative">

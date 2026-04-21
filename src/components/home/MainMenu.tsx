@@ -123,12 +123,12 @@ const MainMenu: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          onClick={() => handleScrollAndNavigate('/unattend-auth')}>
+          onClick={() => handleScrollAndNavigate('/unattendauthintroduce')}>
           <LuUserCheck className={`${iconClass} text-purple-700`} />
-          <span className="tracking-tighter text-black">무인인증</span>
+          <span className="tracking-tighter text-black">출입인증/CCTV</span>
         </motion.button>
 
-        <motion.button
+        {/* <motion.button
           className={`${buttonBaseClass} tracking-tighter hover:bg-white/10 active:bg-white/20`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -136,7 +136,7 @@ const MainMenu: React.FC = () => {
           onClick={() => handleScrollAndNavigate('/manlesscafe')}>
           <LuUserCheck className={`${iconClass} text-indigo-500`} />
           <span className="tracking-tighter text-black">무인 전자담배 창업</span>
-        </motion.button>
+        </motion.button> */}
       </div>
     </div>
   );
