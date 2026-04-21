@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaAnglesDown } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
@@ -19,28 +19,24 @@ const SwiperCarousel: React.FC = () => {
       src: '/images/irehpay_mainbanner1.jpg',
       alt: '메인 배너 이미지1',
     },
+
     {
       id: 2,
-      src: '/images/irehpay_manlesscafebanner1.png',
-      alt: '메인 배너 이미지2',
-    },
-    {
-      id: 3,
       src: '/images/irehpay_mainbanner4.png',
       alt: '메인 배너 이미지2',
     },
     {
-      id: 4,
+      id: 3,
       src: '/images/irehpay_rovisbanner.png',
       alt: '메인 배너 이미지2',
     },
     {
-      id: 5,
+      id: 4,
       src: '/images/irehpay_mainbanner3.jpg',
       alt: '메인 배너 이미지3',
     },
     {
-      id: 6,
+      id: 5,
       src: '/images/barrierfree_banner.png',
       alt: '메인 배너 이미지4',
     },
@@ -102,21 +98,7 @@ const SwiperCarousel: React.FC = () => {
 
   return (
     <div className="relative h-screen overflow-hidden xs:h-[300px]">
-      {/* <NewYearTimer /> */}
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={currentSlide}
-          className="absolute h-full w-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{
-            duration: 1.5,
-            ease: [0.4, 0, 0.2, 1],
-          }}>
-          <div className="relative h-full w-full">{renderImage(slides[currentSlide], currentSlide)}</div>
-        </motion.div>
-      </AnimatePresence>
+      <div className="relative h-full w-full">{renderImage(slides[currentSlide], currentSlide)}</div>
 
       <motion.div
         className="absolute top-10 z-30 ml-[200px] mt-[180px] flex flex-col items-start gap-4 text-left xs:left-4 xs:top-4 xs:ml-[15px] xs:mt-[80px]"
