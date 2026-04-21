@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { NotionRenderer } from 'react-notion';
+import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+import 'react-notion/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css';
+
 import ScrollToTop from '../../components/ScrollToTop';
 import CustomerSidebar from '../../components/CustomerSidebar';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBack } from 'react-icons/io5';
-import 'react-notion/src/styles.css';
 
-// 고객지원 FAQ 페이지 컴포넌트 - Notion API를 사용하여 페이지 내용 표시
 const CustomerSupportEvent: React.FC = () => {
   const [response, setResponse] = useState<any>({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const currentPageId = searchParams.get('page');
 
-  // 주어진 페이지 ID로 Notion 페이지 내용을 로드하는 함수
-
-  const loadNotionPage = (pageId: string) => {
+  const loadNotionPage = async (pageId: string) => {
     setLoading(true);
+    setError(null);
     if (pageId !== currentPageId) {
       navigate(`?page=${pageId}`, { replace: true });
     }
-    axios
-      .get(`https://notion-api.splitbee.io/v1/page/${pageId}`)
-      .then(({ data }) => {
-        setResponse(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching Notion data:', error);
-        setLoading(false);
-      });
+
+    try {
+      const { data } = await axios.get(`https://notion-api.splitbee.io/v1/page/${pageId}`);
+      if (!data || Object.keys(data).length === 0) {
+        throw new Error('No data found');
+      }
+      setResponse(data);
+    } catch (err: any) {
+      console.error('Error fetching Notion data:', err);
+      setError('데이터를 불러오는 중 오류가 발생했습니다.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const containerVariants = {
@@ -58,6 +62,39 @@ const CustomerSupportEvent: React.FC = () => {
     },
   };
 
+  useLayoutEffect(() => {
+    const handleLinkClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+
+      if (anchor && anchor.href) {
+        const url = new URL(anchor.href);
+        if (url.origin === window.location.origin && url.searchParams.has('page')) {
+          e.preventDefault();
+          const pageId = url.searchParams.get('page');
+          if (pageId) {
+            loadNotionPage(pageId);
+          }
+        }
+      }
+    };
+
+    const notionContainer = document.querySelector('.notion-container');
+    if (notionContainer) {
+      notionContainer.addEventListener('click', handleLinkClick as any);
+    } else {
+      document.addEventListener('click', handleLinkClick as any);
+    }
+
+    return () => {
+      if (notionContainer) {
+        notionContainer.removeEventListener('click', handleLinkClick as any);
+      } else {
+        document.removeEventListener('click', handleLinkClick as any);
+      }
+    };
+  }, [response]);
+
   useEffect(() => {
     const pageId = currentPageId || '15fa1962dab4801bbb2de8cf359379f2';
     loadNotionPage(pageId);
@@ -65,18 +102,10 @@ const CustomerSupportEvent: React.FC = () => {
     const style = document.createElement('style');
     style.innerHTML = `
       .notion-page-header {
-        display: none;
+        display: none !important;
       }
-      .notion-link {
-        cursor: pointer;
-        color: #2563eb;
-        text-decoration: underline;
-      }
-      .notion-link:hover {
-        opacity: 0.8;
-      }
-      .notion-content {
-        clip-path: inset(0px 0 0 0);
+      .notion {
+        font-family: inherit !important;
       }
     `;
     document.head.appendChild(style);
@@ -84,7 +113,7 @@ const CustomerSupportEvent: React.FC = () => {
     return () => {
       document.head.removeChild(style);
     };
-  }, [navigate, location.search]);
+  }, [location.search]);
 
   return (
     <div className="container mx-auto mt-[100px] flex px-4 py-8 xs:mt-[0px] xs:flex-col">
@@ -95,7 +124,7 @@ const CustomerSupportEvent: React.FC = () => {
         initial="hidden"
         animate="visible"
         variants={containerVariants}>
-        <motion.div className="w-full max-w-6xl rounded-lg p-8 xs:p-4" variants={itemVariants}>
+        <motion.div className="w-full max-w-6xl rounded-lg bg-white p-8 xs:p-4" variants={itemVariants}>
           <div className="mb-4 flex items-center gap-4">
             {currentPageId && (
               <motion.button
@@ -120,37 +149,14 @@ const CustomerSupportEvent: React.FC = () => {
             <div className="flex items-center justify-center py-8">
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
             </div>
-          ) : Object.keys(response).length > 0 ? (
-            <div
-              className="notion-content mt-[0px]"
-              onClick={(e) => {
-                const target = e.target as HTMLElement;
-                const link = target.closest('a');
-                if (link) {
-                  e.preventDefault();
-                  const href = link.getAttribute('href');
-                  if (href?.startsWith('/')) {
-                    const pageId = href.split('-').pop();
-                    if (pageId) {
-                      navigate(`?page=${pageId}`);
-                      loadNotionPage(pageId);
-                    }
-                  } else if (href) {
-                    window.open(href, '_blank');
-                  }
-                }
-              }}>
-              <NotionRenderer blockMap={response} fullPage={true} />
+          ) : error ? (
+            <div className="rounded-lg bg-red-50 p-4 text-center text-red-500">
+              <p>{error}</p>
             </div>
           ) : (
-            <motion.div className="space-y-4" variants={itemVariants}>
-              <div className="rounded-lg bg-gray-50 p-6">
-                <h3 className="mb-2 text-xl font-semibold text-gray-800">서비스 준비중입니다.</h3>
-                <p className="text-gray-600">
-                  보다 나은 서비스 제공을 위해 준비중입니다. 빠른 시일 내에 찾아뵙겠습니다.
-                </p>
-              </div>
-            </motion.div>
+            <div className="notion-container -mt-[0px]">
+              <NotionRenderer blockMap={response} fullPage={true} mapPageUrl={(pageId) => `?page=${pageId}`} />
+            </div>
           )}
         </motion.div>
       </motion.div>

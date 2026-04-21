@@ -1,13 +1,15 @@
-// 필요한 라이브러리와 컴포넌트들을 임포트
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { NotionRenderer } from 'react-notion';
+import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import ScrollToTop from '../../components/ScrollToTop';
 import CustomerSidebar from '../../components/CustomerSidebar';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { IoArrowBack } from 'react-icons/io5';
+
 import 'react-notion/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css';
 
 const CustomerSupportNotice: React.FC = () => {
   const [response, setResponse] = useState<any>({});
@@ -17,21 +19,22 @@ const CustomerSupportNotice: React.FC = () => {
   const searchParams = new URLSearchParams(location.search);
   const currentPageId = searchParams.get('page');
 
-  const loadNotionPage = (pageId: string) => {
+  // 페이지 ID로 Notion 페이지 내용을 로드하는 함수
+  const loadNotionPage = async (pageId: string) => {
     setLoading(true);
     if (pageId !== currentPageId) {
+      // URL을 업데이트하여 새로고침 시에도 유지되도록 함
       navigate(`?page=${pageId}`, { replace: true });
     }
-    axios
-      .get(`https://notion-api.splitbee.io/v1/page/${pageId}`)
-      .then(({ data }) => {
-        setResponse(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching Notion data:', error);
-        setLoading(false);
-      });
+
+    try {
+      const { data } = await axios.get(`https://notion-api.splitbee.io/v1/page/${pageId}`);
+      setResponse(data);
+    } catch (error) {
+      console.error('Error fetching Notion data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const containerVariants = {
@@ -56,25 +59,59 @@ const CustomerSupportNotice: React.FC = () => {
     },
   };
 
+  // 링크 클릭 핸들러 (이벤트 위임 사용)
+  // react-notion은 mapPageUrl로 생성된 링크에 대해 일반 <a> 태그를 렌더링하므로,
+  // 이를 가로채서 preventDefault 후 navigate()로 SPA 이동을 처리해야 함.
+  useLayoutEffect(() => {
+    const handleLinkClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+
+      if (anchor && anchor.href) {
+        // 현재 도메인 내부 링크인지 확인 (쿼리 파라미터 ?page= 포함)
+        const url = new URL(anchor.href);
+        if (url.origin === window.location.origin && url.searchParams.has('page')) {
+          e.preventDefault();
+          const pageId = url.searchParams.get('page');
+          if (pageId) {
+            loadNotionPage(pageId);
+          }
+        }
+      }
+    };
+
+    // Notion 렌더러가 마운트된 컨테이너에 이벤트 리스너 추가
+    const notionContainer = document.querySelector('.notion-container');
+    if (notionContainer) {
+      notionContainer.addEventListener('click', handleLinkClick as any);
+    } else {
+      document.addEventListener('click', handleLinkClick as any);
+    }
+
+    return () => {
+      if (notionContainer) {
+        notionContainer.removeEventListener('click', handleLinkClick as any);
+      } else {
+        document.removeEventListener('click', handleLinkClick as any);
+      }
+    };
+  }, [response]); // response가 바뀌어 렌더링 구조가 바뀔 때마다 리스너 재확인
+
   useEffect(() => {
+    // 초기 로드 시 또는 URL 변경 시 데이터 로드
+    // 만약 내부 클릭으로 loadNotionPage를 불렀다면 URL이 이미 바뀌어 있을 수 있음.
+    // 하지만 뒤로가기 버튼 등을 지원하기 위해 location.search 감지 필요
     const pageId = currentPageId || '15fa1962dab48096b842eb6b35e66ad6';
     loadNotionPage(pageId);
 
+    // Custom styles for notion override
     const style = document.createElement('style');
     style.innerHTML = `
       .notion-page-header {
-        display: none;
+        display: none !important;
       }
-      .notion-link {
-        cursor: pointer;
-        color: #2563eb;
-        text-decoration: underline;
-      }
-      .notion-link:hover {
-        opacity: 0.8;
-      }
-      .notion-content {
-        clip-path: inset(0px 0 0 0);
+      .notion {
+        font-family: inherit !important;
       }
     `;
     document.head.appendChild(style);
@@ -82,7 +119,7 @@ const CustomerSupportNotice: React.FC = () => {
     return () => {
       document.head.removeChild(style);
     };
-  }, [navigate, location.search]);
+  }, [location.search]); // navigate로 인해 URL이 바뀌면 다시 fetch (중복 호출 방지는 loadNotionPage 내부 로직이나 상태로 관리 가능하지만, 간단히 둠)
 
   return (
     <div className="container mx-auto mt-[100px] flex px-4 py-8 xs:mt-[0px] xs:flex-col">
@@ -119,37 +156,10 @@ const CustomerSupportNotice: React.FC = () => {
             <div className="flex items-center justify-center py-8">
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
             </div>
-          ) : Object.keys(response).length > 0 ? (
-            <div
-              className="notion-content mt-[0px]"
-              onClick={(e) => {
-                const target = e.target as HTMLElement;
-                const link = target.closest('a');
-                if (link) {
-                  e.preventDefault();
-                  const href = link.getAttribute('href');
-                  if (href?.startsWith('/')) {
-                    const pageId = href.split('-').pop();
-                    if (pageId) {
-                      navigate(`?page=${pageId}`);
-                      loadNotionPage(pageId);
-                    }
-                  } else if (href) {
-                    window.open(href, '_blank');
-                  }
-                }
-              }}>
-              <NotionRenderer blockMap={response} fullPage={true} />
-            </div>
           ) : (
-            <motion.div className="space-y-4" variants={itemVariants}>
-              <div className="rounded-lg bg-gray-50 p-6">
-                <h3 className="mb-2 text-xl font-semibold text-gray-800">서비스 준비중입니다.</h3>
-                <p className="text-gray-600">
-                  보다 나은 서비스 제공을 위해 준비중입니다. 빠른 시일 내에 찾아뵙겠습니다.
-                </p>
-              </div>
-            </motion.div>
+            <div className="notion-container -mt-[0px]">
+              <NotionRenderer blockMap={response} fullPage={true} mapPageUrl={(pageId) => `?page=${pageId}`} />
+            </div>
           )}
         </motion.div>
       </motion.div>
