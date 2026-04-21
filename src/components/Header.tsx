@@ -6,6 +6,7 @@ import SubMenuPos from './pos/SubMenuPos';
 import SubMenuKiosk from './kiosk/SubMenuKiosk';
 import SubMenuTossTerminals from './tossterminals/SubMenuTossTerminals';
 import SubMenuWireandWireless from './wireandwireless/SubMenuWireandWireless';
+import SubMenuUnattendAuth from './unattend-auth/SubMenuUnattendAuth';
 import MobileHeader from './MobileHeader';
 
 interface HeaderProps {
@@ -22,11 +23,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isKioskMenuVisible, setIsKioskMenuVisible] = useState(false);
   const [isTossMenuVisible, setIsTossMenuVisible] = useState(false);
   const [isWireMenuVisible, setIsWireMenuVisible] = useState(false);
+  const [isUnattendAuthMenuVisible, setIsUnattendAuthMenuVisible] = useState(false);
   const [leaveTimeout, setLeaveTimeout] = useState<number | null>(null);
   const [posLeaveTimeout, setPosLeaveTimeout] = useState<number | null>(null);
   const [kioskLeaveTimeout, setKioskLeaveTimeout] = useState<number | null>(null);
   const [tossLeaveTimeout, setTossLeaveTimeout] = useState<number | null>(null);
   const [wireLeaveTimeout, setWireLeaveTimeout] = useState<number | null>(null);
+  const [unattendAuthLeaveTimeout, setUnattendAuthLeaveTimeout] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [showText, setShowText] = useState(true);
   const [showLogo, setShowLogo] = useState(false);
@@ -125,6 +128,21 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     setWireLeaveTimeout(
       window.setTimeout(() => {
         setIsWireMenuVisible(false);
+      }, 200),
+    );
+  };
+
+  const handleUnattendAuthMouseEnter = () => {
+    setIsUnattendAuthMenuVisible(true);
+    if (unattendAuthLeaveTimeout) {
+      clearTimeout(unattendAuthLeaveTimeout);
+    }
+  };
+
+  const handleUnattendAuthMouseLeave = () => {
+    setUnattendAuthLeaveTimeout(
+      window.setTimeout(() => {
+        setIsUnattendAuthMenuVisible(false);
       }, 200),
     );
   };
@@ -274,32 +292,22 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
                 <SubMenuKiosk isVisible={isKioskMenuVisible} />
               </li>
 
-              <li className="relative flex items-center justify-center">
+              <li
+                className="relative flex items-center justify-center"
+                onMouseEnter={handleUnattendAuthMouseEnter}
+                onMouseLeave={handleUnattendAuthMouseLeave}>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link
-                    to="/unattend-auth"
+                    to="/unattendauthintroduce"
                     className="group flex h-full w-full items-center justify-center rounded-xl px-1.5 py-1.5 transition duration-300 hover:bg-slate-500 hover:bg-opacity-50"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     <span className="relative">
-                      전화무인인증/CCTV
+                      출입인증/CCTV
                       <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
                     </span>
                   </Link>
                 </motion.div>
-              </li>
-
-              <li className="relative flex items-center justify-center">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link
-                    to="/manlesscafe"
-                    className="group flex h-full w-full items-center justify-center rounded-xl px-1.5 py-1.5 transition duration-300 hover:bg-slate-500 hover:bg-opacity-50"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    <span className="relative">
-                      무인전자담배 매장창업
-                      <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-current transition-all duration-300 group-hover:w-full"></span>
-                    </span>
-                  </Link>
-                </motion.div>
+                <SubMenuUnattendAuth isVisible={isUnattendAuthMenuVisible} />
               </li>
 
               <li className="relative flex items-center justify-center">
