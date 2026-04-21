@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaPhoneAlt, FaStore } from 'react-icons/fa';
-import ScrollToTop from '../components/ScrollToTop';
+import ScrollToTop from '../../components/ScrollToTop';
 import { motion } from 'framer-motion';
+import UnattendAuthSidebar from '../../components/unattend-auth/UnattendAuthSidebar';
 
-const UnAttendAuthIntroduce: React.FC = () => {
+const UnattendAuthIntroduce: React.FC = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -27,9 +28,10 @@ const UnAttendAuthIntroduce: React.FC = () => {
   };
 
   return (
-    <div className="mt-[200px] flex flex-col items-center justify-center xs:mt-[100px]">
+    <div className="container mx-auto mt-[100px] flex px-4 py-8 xs:mt-[100px] xs:flex-col">
+      <UnattendAuthSidebar />
       <motion.div
-        className="w-full max-w-6xl rounded-lg bg-white p-8"
+        className="ml-[300px] flex-1 pl-8 xs:ml-0 xs:mt-[50px] xs:pl-0"
         initial="hidden"
         animate="visible"
         variants={containerVariants}>
@@ -130,4 +132,4 @@ const UnAttendAuthIntroduce: React.FC = () => {
   );
 };
 
-export default UnAttendAuthIntroduce;
+export default UnattendAuthIntroduce;
